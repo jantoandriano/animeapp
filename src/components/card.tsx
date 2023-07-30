@@ -1,20 +1,19 @@
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'
 
 const CardContainer = styled.div`
     border: 1px solid black;
     height: 200px;
     border-radius: 10px;
     @media only screen and (min-width: 768px) {
-        width: 40%;        
+        width: 40%;
     }
 `
 
 const CardImage = styled.img`
     width: 100%;
     height: 100px;
-    background-color: #D8D9DA;
+    background-color: #d8d9da;
     border-radius: 10px;
     object-fit: cover;
 `
@@ -37,9 +36,9 @@ const Content = styled(Link)`
 `
 
 interface Props {
-    id: string;
-    image: string;
-    title: string;
+    id: string
+    image: string
+    title: string
 }
 
 export const Card: React.FC<Props> = ({ id, image, title }) => {
@@ -47,12 +46,8 @@ export const Card: React.FC<Props> = ({ id, image, title }) => {
         <CardContainer>
             <Content to={`/animes/${id}`}>
                 <CardImage alt="card_image" src={image} />
-                <CardTitle>
-                    {title}
-                </CardTitle>
+                <CardTitle>{title}</CardTitle>
             </Content>
-
         </CardContainer>
     )
 }
-

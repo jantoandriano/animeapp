@@ -1,4 +1,4 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
     schema: '<URL_OF_YOUR_GRAPHQL_API>',
@@ -9,10 +9,10 @@ const config: CodegenConfig = {
             plugins: [],
             presetConfig: {
                 gqlTagName: 'gql',
-            }
-        }
+            },
+        },
     },
     ignoreNoDocuments: true,
-};
+}
 
-export default config;
+export default config

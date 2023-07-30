@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 import { AiOutlineFolderOpen } from 'react-icons/ai'
-import styled from "@emotion/styled"
-import { useGetCollectionList } from "../hooks/queries/useGetCollectionList"
-import { PageLayout, QueryLayout } from "../layouts"
-
+import styled from '@emotion/styled'
+import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
+import { PageLayout, QueryLayout } from '../layouts'
 
 const Container = styled.div`
     display: flex;
@@ -11,7 +10,6 @@ const Container = styled.div`
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
-
 `
 const Content = styled.div`
     display: flex;
@@ -28,7 +26,7 @@ const Description = styled.div`
 `
 
 const Image = styled.img`
-     object-fit: cover;
+    object-fit: cover;
 `
 
 const CollectionTitle = styled(Link)`
@@ -39,7 +37,6 @@ const CollectionTitle = styled(Link)`
     text-decoration: none;
     margin-right: 10px;
     font-family: 'Poppins', sans-serif;
-
 `
 
 const CollectionWrapper = styled.div`
@@ -64,21 +61,38 @@ export const CollectionList = () => {
                     <QueryLayout loading={loading || !data} error={error}>
                         <CollectionWrapper>
                             {data?.lists.map((list: any) => {
-                                const route = list.name === 'Watching' ? 'current' : list.name.toLowerCase();
+                                const route =
+                                    list.name === 'Watching'
+                                        ? 'current'
+                                        : list.name.toLowerCase()
                                 return (
                                     <div>
                                         <Header>
-                                            <CollectionTitle to={`/collections/${route}`}>{list.name}</CollectionTitle>
+                                            <CollectionTitle
+                                                to={`/collections/${route}`}
+                                            >
+                                                {list.name}
+                                            </CollectionTitle>
                                             <AiOutlineFolderOpen />
                                         </Header>
                                         {list.entries.map((entry: any) => (
                                             <Content key={entry.id}>
-                                                <Image src={entry.media.bannerImage} width={50} height={50} />
-                                                <Description>{entry.media.title.userPreferred}</Description>
+                                                <Image
+                                                    src={
+                                                        entry.media.bannerImage
+                                                    }
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                                <Description>
+                                                    {
+                                                        entry.media.title
+                                                            .userPreferred
+                                                    }
+                                                </Description>
                                             </Content>
                                         ))}
                                     </div>
-
                                 )
                             })}
                         </CollectionWrapper>

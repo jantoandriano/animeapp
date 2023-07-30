@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { PropsWithChildren } from "react";
+import styled from '@emotion/styled'
+import { PropsWithChildren } from 'react'
 import { CgSpinner } from 'react-icons/cg'
 
 const Center = styled.div`
@@ -10,14 +10,17 @@ const Center = styled.div`
 `
 
 interface Props {
-    loading: boolean;
+    loading: boolean
     error?: {
         message?: string
     }
 }
 
-export const QueryLayout: React.FC<PropsWithChildren<Props>> = ({ error, loading, children }) => {
-
+export const QueryLayout: React.FC<PropsWithChildren<Props>> = ({
+    error,
+    loading,
+    children,
+}) => {
     if (loading) {
         return (
             <Center>
@@ -27,18 +30,8 @@ export const QueryLayout: React.FC<PropsWithChildren<Props>> = ({ error, loading
     }
 
     if (error) {
-        return (
-            <Center>
-                {error.message}
-            </Center>
-        )
+        return <Center>{error.message}</Center>
     }
 
-    return (
-        <div>
-            {children}
-        </div>
-    )
-
-
+    return <div>{children}</div>
 }

@@ -1,6 +1,5 @@
-import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-
+import { useMutation } from '@apollo/client'
+import gql from 'graphql-tag'
 
 const ADD_COLLECTION = gql`
     mutation ($mediaId: Int, $status: MediaListStatus) {
@@ -12,17 +11,21 @@ const ADD_COLLECTION = gql`
             }
         }
     }
-`;
+`
 
 export const useAddCollection = () => {
-    const [addToCollection, { data, error, loading }] = useMutation(ADD_COLLECTION, {
-        context: {
-            Headers: {
-                "Authorization": `Bearer ` + sessionStorage.getItem('access_token'),
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
+    const [addToCollection, { data, error, loading }] = useMutation(
+        ADD_COLLECTION,
+        {
+            context: {
+                Headers: {
+                    Authorization:
+                        `Bearer ` + sessionStorage.getItem('access_token'),
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            },
         }
-    });
+    )
 
     return {
         addToCollection,
@@ -30,5 +33,4 @@ export const useAddCollection = () => {
         error,
         loading,
     }
-
 }

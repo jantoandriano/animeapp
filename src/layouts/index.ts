@@ -1,2 +1,2 @@
-export { PageLayout } from "./page-layout"
-export { QueryLayout } from "./query-layout"
+export { PageLayout } from './page-layout'
+export { QueryLayout } from './query-layout'
