@@ -15,6 +15,9 @@ const MenuContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
+    background-color: #EBEBEB;
+    padding: 8px;
+    border-radius: 8px;
 `
 
 const MenuItem = styled(Link)`
@@ -33,6 +36,8 @@ const PageTitle = styled.div`
     text-align: center;
     margin-bottom: 10px;
     font-family: 'Poppins', '400', sans-serif;
+    margin-top: 30px;
+    letter-spacing: 8px;
 `
 
 export const PageLayout: React.FC<PropsWithChildren<Props>> = ({

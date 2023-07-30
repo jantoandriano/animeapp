@@ -4,7 +4,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 10px;
     align-items: center;
 `
@@ -12,24 +12,27 @@ const Container = styled.div`
 const PageNumber = styled.div`
     margin: 0 10px 0 10px;
     font-family: 'Poppins', '400', sans-serif;
-    background-color: #faf0e4;
+    background-color: #272829;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 8px;
     border-radius: 8px;
+    color: #fff6e0;
 `
 
 const ButtonPrev = styled(AiOutlineArrowLeft)`
-    background-color: #faf0e4;
+    background-color: #272829;
     padding: 8px;
     border-radius: 8px;
+    color: #fff6e0;
 `
 
 const ButtonNext = styled(AiOutlineArrowRight)`
-    background-color: #faf0e4;
+    background-color: #272829;
     padding: 8px;
     border-radius: 8px;
+    color: #fff6e0;
 `
 
 interface Props {

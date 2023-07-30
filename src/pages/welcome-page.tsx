@@ -11,6 +11,17 @@ const Container = styled.div`
     align-items: center;
 `
 
+const Enter = styled.a`
+    text-decoration: none;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: #001D6E;
+`
+
 export const WelcomePage = () => {
     const navigate = useNavigate()
 
@@ -27,12 +38,10 @@ export const WelcomePage = () => {
     }, [])
 
     return (
-        <PageLayout pageTitle="Welcome To Animeapp">
-            <Container>
-                <a href="https://anilist.co/api/v2/oauth/authorize?client_id=13290&response_type=token">
-                    Login with AniList
-                </a>{' '}
-            </Container>
-        </PageLayout>
+        <Container>
+            <Enter href="https://anilist.co/api/v2/oauth/authorize?client_id=13290&response_type=token">
+                Click Here
+            </Enter>
+        </Container>
     )
 }

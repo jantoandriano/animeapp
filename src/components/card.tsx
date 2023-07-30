@@ -2,9 +2,10 @@ import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 
 const CardContainer = styled.div`
-    border: 1px solid black;
+    border: 0.5rem solid;
     height: 200px;
     border-radius: 10px;
+    background-color: #fff6e0;
     @media only screen and (min-width: 768px) {
         width: 40%;
     }

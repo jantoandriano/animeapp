@@ -21,11 +21,13 @@ const CollectionWrapper = styled.div`
 const Content = styled.div`
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border: 0.3rem solid;
     align-items: center;
     padding: 10px;
-    justify-content: space-between;
+    background-color: #fff6e0;
     border-radius: 8px;
+    margin-bottom: 20px;
+    justify-content: space-between;
 `
 
 const Description = styled.div`
@@ -36,6 +38,7 @@ const Description = styled.div`
 
 const Image = styled.img`
     object-fit: cover;
+    border-radius: 8px;
 `
 
 const Delete = styled.div`

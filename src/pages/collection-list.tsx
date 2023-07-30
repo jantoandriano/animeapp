@@ -14,9 +14,12 @@ const Container = styled.div`
 const Content = styled.div`
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border: 0.3rem solid;
     align-items: center;
     padding: 10px;
+    background-color: #fff6e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
 `
 
 const Description = styled.div`
