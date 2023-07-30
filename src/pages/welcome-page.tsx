@@ -19,7 +19,7 @@ const Enter = styled.a`
     align-items: center;
     font-family: 'Poppins', sans-serif;
     color: white;
-    background-color: #001D6E;
+    background-color: #001d6e;
 `
 
 export const WelcomePage = () => {

@@ -4,13 +4,6 @@ import styled from '@emotion/styled'
 import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
 import { PageLayout, QueryLayout } from '../layouts'
 
-const Container = styled.div`
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-`
 const Content = styled.div`
     display: flex;
     flex-direction: row;
@@ -20,6 +13,10 @@ const Content = styled.div`
     background-color: #fff6e0;
     border-radius: 8px;
     margin-bottom: 20px;
+
+    @media only screen and (min-width: 768px) {
+        align-items: center;
+    }
 `
 
 const Description = styled.div`
@@ -60,47 +57,43 @@ export const CollectionList = () => {
     return (
         <>
             <PageLayout pageTitle="Collection List">
-                <Container>
-                    <QueryLayout loading={loading || !data} error={error}>
-                        <CollectionWrapper>
-                            {data?.lists.map((list: any) => {
-                                const route =
-                                    list.name === 'Watching'
-                                        ? 'current'
-                                        : list.name.toLowerCase()
-                                return (
-                                    <div>
-                                        <Header>
-                                            <CollectionTitle
-                                                to={`/collections/${route}`}
-                                            >
-                                                {list.name}
-                                            </CollectionTitle>
-                                            <AiOutlineFolderOpen />
-                                        </Header>
-                                        {list.entries.map((entry: any) => (
-                                            <Content key={entry.id}>
-                                                <Image
-                                                    src={
-                                                        entry.media.bannerImage
-                                                    }
-                                                    width={50}
-                                                    height={50}
-                                                />
-                                                <Description>
-                                                    {
-                                                        entry.media.title
-                                                            .userPreferred
-                                                    }
-                                                </Description>
-                                            </Content>
-                                        ))}
-                                    </div>
-                                )
-                            })}
-                        </CollectionWrapper>
-                    </QueryLayout>
-                </Container>
+                <QueryLayout loading={loading || !data} error={error}>
+                    <CollectionWrapper>
+                        {data?.lists.map((list: any) => {
+                            const route =
+                                list.name === 'Watching'
+                                    ? 'current'
+                                    : list.name.toLowerCase()
+                            return (
+                                <div>
+                                    <Header>
+                                        <CollectionTitle
+                                            to={`/collections/${route}`}
+                                        >
+                                            {list.name}
+                                        </CollectionTitle>
+                                        <AiOutlineFolderOpen />
+                                    </Header>
+                                    {list.entries.map((entry: any) => (
+                                        <Content key={entry.id}>
+                                            <Image
+                                                src={entry.media.bannerImage}
+                                                width={50}
+                                                height={50}
+                                            />
+                                            <Description>
+                                                {
+                                                    entry.media.title
+                                                        .userPreferred
+                                                }
+                                            </Description>
+                                        </Content>
+                                    ))}
+                                </div>
+                            )
+                        })}
+                    </CollectionWrapper>
+                </QueryLayout>
             </PageLayout>
         </>
     )

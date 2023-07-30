@@ -15,7 +15,7 @@ const MenuContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
-    background-color: #EBEBEB;
+    background-color: #ebebeb;
     padding: 8px;
     border-radius: 8px;
 `
