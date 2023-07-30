@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { AnimeList } from './pages/anime-list';
+import { AnimeDetail } from "./pages/anime-detail";
+import { WelcomePage } from "./pages/welcome-page";
+import { CollectionList } from "./pages/collection-list";
+import { CollectionDetail } from "./pages/collection-detail";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <WelcomePage />
+  },
+  {
+    path: "/animes",
+    element: <AnimeList />
+  },
+  {
+    path: "/animes/:id",
+    element: <AnimeDetail />
+  },
+  {
+    path: "/collections",
+    element: <CollectionList />
+  },
+  {
+    path: "/collections/:type",
+    element: <CollectionDetail />
+  },
+]);
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
