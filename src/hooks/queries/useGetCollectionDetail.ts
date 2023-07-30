@@ -44,14 +44,14 @@ query ($userId: Int, $type: MediaType, $status: MediaListStatus) {
 `
 
 export const useGetCollectionDetail = () => {
-    const params = useParams();
+  const params = useParams();
 
-    const { loading, error, data } = useQuery(GET_COLLECTION_DETAIL, { variables: { type: 'ANIME', userId: 6378015, status: params.type?.toUpperCase() } });
+  const { loading, error, data } = useQuery(GET_COLLECTION_DETAIL, { variables: { type: 'ANIME', userId: process.env.REACT_APP_USER_ID, status: params.type?.toUpperCase() } });
 
-    return {
-        data: data?.MediaListCollection || null,
-        loading,
-        error,
-    }
+  return {
+    data: data?.MediaListCollection || null,
+    loading,
+    error,
+  }
 
 }

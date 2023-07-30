@@ -43,7 +43,7 @@ query ($userId: Int, $type: MediaType) {
 `;
 
 export const useGetCollectionList = () => {
-  const { loading, error, data } = useQuery(GET_COLLECTION_LIST, { variables: { type: 'ANIME', userId: 6378015 } });
+  const { loading, error, data } = useQuery(GET_COLLECTION_LIST, { variables: { type: 'ANIME', userId: process.env.REACT_APP_USER_ID } });
 
   return {
     data: data?.MediaListCollection || null,
