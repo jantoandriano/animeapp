@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 
-const GET_ANIME_DETAIL = gql`
+export const GET_ANIME_DETAIL = gql`
     query ($mediaId: Int, $page: Int, $perPage: Int) {
         Page(page: $page, perPage: $perPage) {
             pageInfo {

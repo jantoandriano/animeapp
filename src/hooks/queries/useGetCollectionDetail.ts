@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 
-const GET_COLLECTION_DETAIL = gql`
+export const GET_COLLECTION_DETAIL = gql`
     query ($userId: Int, $type: MediaType, $status: MediaListStatus) {
         MediaListCollection(userId: $userId, type: $type, status: $status) {
             lists {

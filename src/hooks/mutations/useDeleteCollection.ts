@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
+import { GET_COLLECTION_DETAIL } from '../queries/useGetCollectionDetail'
 
 const DELETE_COLLECTION = gql`
     mutation ($id: Int) {
@@ -19,6 +20,10 @@ export const useDeleteCollection = () => {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             },
+            refetchQueries: [
+                GET_COLLECTION_DETAIL,
+                'GetCollectionDetail'
+            ]
         }
     )
 

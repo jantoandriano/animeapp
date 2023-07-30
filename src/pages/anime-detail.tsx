@@ -9,7 +9,9 @@ import { Button } from '../components/button'
 import { useAddCollection } from '../hooks/mutations/useAddCollection'
 
 interface Media {
-    mediaListEntry: any
+    mediaListEntry: {
+        status: string
+    }
     description: ReactNode
     id: Key | null | undefined
     coverImage: { medium: string | undefined }
@@ -48,7 +50,6 @@ const Title = styled.div`
     margin: 10px 0 10px 0;
     font-family: 'Poppins', sans-serif;
     padding: 8px;
-    width: 100px;
     background-color: #ffc95f;
     display: flex;
     justify-content: center;
@@ -102,14 +103,20 @@ export const AnimeDetail: React.FC = () => {
             <QueryLayout loading={loading} error={error}>
                 <Container>
                     {media.map((val: Media) => {
-                        const url = val.mediaListEntry.status.toLowerCase()
+                        const url = val?.mediaListEntry?.status.toLowerCase()
+                        const status = val?.mediaListEntry
+                            ? val?.mediaListEntry?.status
+                            : ''
+
                         return (
                             <Content key={val.id}>
                                 <Image src={val.coverImage.medium} />
                                 <Title>{val.title.english}</Title>
-                                <CollectionInfo to={`/collections/${url}`}>
-                                    {val.mediaListEntry.status}
-                                </CollectionInfo>
+                                {status ? (
+                                    <CollectionInfo to={`/collections/${url}`}>
+                                        {status}
+                                    </CollectionInfo>
+                                ) : null}
                                 <Description>{val.description}</Description>
                                 <ButtonGroup>
                                     <Button

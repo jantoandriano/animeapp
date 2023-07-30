@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
+import { GET_ANIME_DETAIL } from '../queries/useGetAnimeDetail'
 
 const ADD_COLLECTION = gql`
     mutation ($mediaId: Int, $status: MediaListStatus) {
@@ -24,6 +25,7 @@ export const useAddCollection = () => {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             },
+            refetchQueries: [GET_ANIME_DETAIL, 'GetAnimeDetail'],
         }
     )
 
