@@ -47,8 +47,8 @@ export const PageLayout: React.FC<PropsWithChildren<Props>> = ({
     return (
         <AppContainer>
             <MenuContainer>
-                <MenuItem to="/animes">Anime List</MenuItem>
-                <MenuItem to="/collections">Collection</MenuItem>
+                <MenuItem to="/animes" reloadDocument>Anime List</MenuItem>
+                <MenuItem to="/collections" reloadDocument>Collection</MenuItem>
             </MenuContainer>
             <PageTitle>{pageTitle}</PageTitle>
             {children}

@@ -11,7 +11,7 @@ export const CollectionDetail = () => {
 
     const onDeleteCollectionItem = (id: number) => {
         deleteColletion({ variables: { id } })
-    }
+    }    
 
 
     return (

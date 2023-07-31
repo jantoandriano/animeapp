@@ -21,7 +21,7 @@ export const useDeleteCollection = () => {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             },
-            refetchQueries: [GET_COLLECTION_DETAIL, GET_COLLECTION_LIST, 'GetCollectionDetail', 'GetCollectionList'],
+            refetchQueries: [GET_COLLECTION_DETAIL, GET_COLLECTION_LIST],
         }
     )
 

@@ -11,6 +11,7 @@ interface Props {
 }
 interface Entry {
     id: string
+    mediaId: number;
     media: {
         bannerImage: string
         title: {
@@ -106,9 +107,7 @@ export const CollectionItem: React.FC<Props> = ({ entries, name, onDelete, typeD
                 </Header>
 
                 {
-                    entries.map((entry: Entry) => {
-                        console.log(entry.media);
-                        
+                    entries.map((entry: Entry) => {                        
                         return (
                             <Content key={entry.id} typeDetail={typeDetail}>
                                 <Image
@@ -116,7 +115,7 @@ export const CollectionItem: React.FC<Props> = ({ entries, name, onDelete, typeD
                                     width={50}
                                     height={50}
                                 />
-                                <Title to={`/animes/${entry.media.id}`}>{entry.media.title.userPreferred}</Title>
+                                <Title to={`/animes/${entry.mediaId}`}>{entry.media.title.userPreferred}</Title>
 
                                 {onDelete ? <Delete
                                     onClick={() =>
