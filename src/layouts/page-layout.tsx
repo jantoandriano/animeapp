@@ -8,6 +8,9 @@ interface Props {
 const AppContainer = styled.div`
     padding: 10px;
     flex-direction: column;
+    @media screen and (min-width: 768px) {
+        padding: 30px 100px 30px 100px;
+    }
 `
 
 const MenuContainer = styled.div`

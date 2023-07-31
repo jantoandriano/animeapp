@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem;    
 `
 
 const Enter = styled.div`
