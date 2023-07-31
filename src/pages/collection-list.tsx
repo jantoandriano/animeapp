@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
 import { PageLayout, QueryLayout } from '../layouts'
 import { CollectionItem } from '../components/collection-item'
+import { List } from '../types'
+
 
 const CollectionItemWrapper = styled.div`
     display: flex;
@@ -19,8 +21,8 @@ export const CollectionList = () => {
                 <QueryLayout loading={loading || !data} error={error}>
                     <CollectionItemWrapper>
                         {
-                            data?.lists.map((list: any) => (
-                                <CollectionItem name={list.name} entries={list.entries} />
+                            data?.lists.map((list: List) => (
+                                <CollectionItem key={list.name} name={list.name} entries={list.entries} />
                             ))
                         }
                     </CollectionItemWrapper>

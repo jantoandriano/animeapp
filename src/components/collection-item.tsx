@@ -6,7 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 interface Props {
     entries: Entry[]
     name: string
-    onDelete?: (id: number) => void
+    onDelete?: (id: number, title: string) => void
     typeDetail?: boolean | undefined
 }
 interface Entry {
@@ -35,6 +35,7 @@ const Content = styled.div<Styled>`
     border-radius: 8px;
     margin-bottom: 20px;
     margin: 0 auto;
+    margin-bottom: 10px;
     ${props => props.typeDetail ? 'justify-content: space-between;' : ''}
 
     @media and (min-width: 768px) {
@@ -107,7 +108,7 @@ export const CollectionItem: React.FC<Props> = ({ entries, name, onDelete, typeD
                 </Header>
 
                 {
-                    entries.map((entry: Entry) => {                        
+                    entries.map((entry: Entry) => {
                         return (
                             <Content key={entry.id} typeDetail={typeDetail}>
                                 <Image
@@ -120,7 +121,8 @@ export const CollectionItem: React.FC<Props> = ({ entries, name, onDelete, typeD
                                 {onDelete ? <Delete
                                     onClick={() =>
                                         onDelete(
-                                            entry.id as unknown as number
+                                            entry.id as unknown as number,
+                                            entry.media.title.userPreferred
                                         )
                                     }
                                 >

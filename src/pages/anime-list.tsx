@@ -44,6 +44,7 @@ export const AnimeList: React.FC = () => {
                 <AnimeListContainer>
                     {data.map((val: Media) => (
                         <AnimeItem
+                            key={val.id}
                             id={val.id}
                             title={val.title.english}
                             image={val.coverImage.extraLarge}

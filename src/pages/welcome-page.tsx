@@ -8,9 +8,11 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    padding: 2rem;
 `
 
-const Enter = styled.a`
+const Enter = styled.div`
     text-decoration: none;
     padding: 8px;
     display: flex;
@@ -19,6 +21,26 @@ const Enter = styled.a`
     font-family: 'Poppins', sans-serif;
     color: white;
     background-color: #001d6e;
+    margin-top: 30px;
+    border-radius: 8px;
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+`
+const Title = styled.div`
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+`
+
+const Description = styled.div`
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin-top: 20px;
 `
 
 export const WelcomePage = () => {
@@ -36,8 +58,15 @@ export const WelcomePage = () => {
 
     return (
         <Container>
-            <Enter href="https://anilist.co/api/v2/oauth/authorize?client_id=13790&response_type=token">
-                Click Here
+            <Title>
+                Welcome to animeapp
+            </Title>
+            <Description>
+                This is created to fullfil requirement process of GOTO - Principle Enginner - Web Platform 
+                and for this app to work propperly you need to click button below to get authenticate
+            </Description>
+            <Enter>
+                <a href="https://anilist.co/api/v2/oauth/authorize?client_id=13790&response_type=token">Click Here</a>
             </Enter>
         </Container>
     )
