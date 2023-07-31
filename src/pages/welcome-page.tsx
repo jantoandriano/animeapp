@@ -36,7 +36,7 @@ export const WelcomePage = () => {
 
     return (
         <Container>
-            <Enter href="https://anilist.co/api/v2/oauth/authorize?client_id=13290&response_type=token">
+            <Enter href="https://anilist.co/api/v2/oauth/authorize?client_id=13790&response_type=token">
                 Click Here
             </Enter>
         </Container>

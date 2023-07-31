@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 
-const GET_COLLECTION_LIST = gql`
+export const GET_COLLECTION_LIST = gql`
     query ($userId: Int, $type: MediaType) {
         MediaListCollection(userId: $userId, type: $type) {
             lists {
