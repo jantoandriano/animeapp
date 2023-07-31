@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
 import { AiOutlineFolderOpen } from 'react-icons/ai'
 import styled from '@emotion/styled'
+import { MdDeleteOutline } from 'react-icons/md'
 
 interface Props {
-    collections: Collections[]
-}
-
-interface Collections {
-    name: string
     entries: Entry[]
+    name: string
+    onDelete?: (id: number) => void
+    typeDetail?: boolean | undefined
 }
-
 interface Entry {
     id: string
     media: {
@@ -18,10 +16,15 @@ interface Entry {
         title: {
             userPreferred: string
         }
+        id: number;
     }
 }
 
-const Content = styled.div`
+interface Styled {
+    typeDetail: boolean | undefined;
+}
+
+const Content = styled.div<Styled>`
     display: flex;
     flex-direction: row;
     border: 0.3rem solid;
@@ -31,6 +34,7 @@ const Content = styled.div`
     border-radius: 8px;
     margin-bottom: 20px;
     margin: 0 auto;
+    ${props => props.typeDetail ? 'justify-content: space-between;' : ''}
 
     @media and (min-width: 768px) {
         align-items: center;
@@ -39,10 +43,12 @@ const Content = styled.div`
 
 `
 
-const Description = styled.div`
+const Title = styled(Link)`
     font-size: 15px;
     font-family: 'Poppins', sans-serif;
     margin-left: 10px;
+    text-decoration: none;
+    color: #272829;
 `
 
 const Image = styled.img`
@@ -64,7 +70,7 @@ const Header = styled.div`
     justify-content: flex-start;
 `
 const CollectionItemWrapper = styled.div`
-    padding: 0 30px 0 30px;
+    padding: 0 10px 0 10px;
 
     @media only screen and (min-width: 468px) {
         align-items: center;
@@ -74,41 +80,58 @@ const CollectionItemWrapper = styled.div`
         align-items: center;
         padding: 0 100px 0 100px;
     }
-
+`
+const Delete = styled.div`
+    padding: 8px;
+    border: 1px solid black;
+    background-color: #f24c3d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
 `
 
-export const CollectionItem: React.FC<Props> = ({ collections }) => {
+export const CollectionItem: React.FC<Props> = ({ entries, name, onDelete, typeDetail }) => {
+    const route = name === 'Watching' ? 'current' : name.toLowerCase()
 
     return (
         <>
-            {collections.map((val: Collections) => {
-                const route = val.name === 'Watching' ? 'current' : val.name.toLowerCase()
-                return (
-                    <CollectionItemWrapper>
-                        <Header key={val.name}>
-                            <CollectionTitle to={`/collections/${route}`}>
-                                {val.name}
-                            </CollectionTitle>
-                            <AiOutlineFolderOpen />
-                        </Header>
+            <CollectionItemWrapper>
+                <Header key={name}>
+                    <CollectionTitle to={`/collections/${route}`}>
+                        {name}
+                    </CollectionTitle>
+                    <AiOutlineFolderOpen />
+                </Header>
 
-                        {
-                            val.entries.map((entry: Entry) => {
-                                return (
-                                    <Content key={entry.id}>
-                                        <Image
-                                            src={entry.media.bannerImage}
-                                            width={50}
-                                            height={50}
-                                        />
-                                        <Description>{entry.media.title.userPreferred}</Description>
-                                    </Content>
-                                )
-                            })
-                        }
-                    </CollectionItemWrapper>
-                )
-            })}
+                {
+                    entries.map((entry: Entry) => {
+                        console.log(entry.media);
+                        
+                        return (
+                            <Content key={entry.id} typeDetail={typeDetail}>
+                                <Image
+                                    src={entry.media.bannerImage}
+                                    width={50}
+                                    height={50}
+                                />
+                                <Title to={`/animes/${entry.media.id}`}>{entry.media.title.userPreferred}</Title>
+
+                                {onDelete ? <Delete
+                                    onClick={() =>
+                                        onDelete(
+                                            entry.id as unknown as number
+                                        )
+                                    }
+                                >
+                                    <MdDeleteOutline />
+                                </Delete> : null}
+                            </Content>
+                        )
+                    })
+                }
+            </CollectionItemWrapper>
         </>
     )
 }

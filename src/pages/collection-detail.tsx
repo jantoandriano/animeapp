@@ -1,56 +1,8 @@
-import styled from '@emotion/styled'
 import { useGetCollectionDetail } from '../hooks/queries/useGetCollectionDetail'
-import { MdDeleteOutline } from 'react-icons/md'
 import { PageLayout, QueryLayout } from '../layouts'
 import { useDeleteCollection } from '../hooks/mutations/useDeleteCollection'
+import { CollectionItem } from '../components/collection-item'
 
-const CollectionTitle = styled.div`
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-family: 'Poppins', sans-serif;
-`
-
-const CollectionWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 20px;
-`
-
-const Content = styled.div`
-    display: flex;
-    flex-direction: row;
-    border: 0.3rem solid;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff6e0;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    justify-content: space-between;
-`
-
-const Description = styled.div`
-    margin-left: 10px;
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-`
-
-const Image = styled.img`
-    object-fit: cover;
-    border-radius: 8px;
-`
-
-const Delete = styled.div`
-    padding: 8px;
-    border: 1px solid black;
-    background-color: #f24c3d;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-`
 
 export const CollectionDetail = () => {
     const { data, loading, error } = useGetCollectionDetail()
@@ -61,45 +13,16 @@ export const CollectionDetail = () => {
         deleteColletion({ variables: { id } })
     }
 
+
     return (
         <>
             <PageLayout pageTitle="Collection Detail">
                 <QueryLayout loading={loading || !data} error={error}>
-                    <CollectionWrapper>
-                        {data?.lists.map((list: any) => {
-                            return (
-                                <div>
-                                    <CollectionTitle>
-                                        {list.name}
-                                    </CollectionTitle>
-                                    {list.entries.map((entry: any) => (
-                                        <Content key={entry.id}>
-                                            <Image
-                                                src={entry.media.bannerImage}
-                                                width={50}
-                                                height={50}
-                                            />
-                                            <Description>
-                                                {
-                                                    entry.media.title
-                                                        .userPreferred
-                                                }
-                                            </Description>
-                                            <Delete
-                                                onClick={() =>
-                                                    onDeleteCollectionItem(
-                                                        entry.id
-                                                    )
-                                                }
-                                            >
-                                                <MdDeleteOutline />
-                                            </Delete>
-                                        </Content>
-                                    ))}
-                                </div>
-                            )
-                        })}
-                    </CollectionWrapper>
+                    {
+                        data?.lists.map((list: any) => (
+                            <CollectionItem name={list.name} entries={list.entries} onDelete={onDeleteCollectionItem} typeDetail />
+                        ))
+                    }
                 </QueryLayout>
             </PageLayout>
         </>

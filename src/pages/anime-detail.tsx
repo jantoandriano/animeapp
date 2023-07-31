@@ -17,13 +17,13 @@ interface Media {
     coverImage: { medium: string | undefined }
     title: {
         english:
-            | string
-            | number
-            | boolean
-            | ReactElement<any, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | null
-            | undefined
+        | string
+        | number
+        | boolean
+        | ReactElement<any, string | JSXElementConstructor<any>>
+        | Iterable<ReactNode>
+        | null
+        | undefined
     }
 }
 
@@ -105,19 +105,16 @@ export const AnimeDetail: React.FC = () => {
         <PageLayout pageTitle="Anime Detail">
             <QueryLayout loading={loading} error={error}>
                 <Container>
-                    {media.map((val: Media) => {
-                        const url = val?.mediaListEntry?.status.toLowerCase()
-                        const status = val?.mediaListEntry
-                            ? val?.mediaListEntry?.status
-                            : ''
+                    {media.map((val: Media) => {                        
+                        const url = val?.mediaListEntry?.status === 'CURRENT' ? "watching" : val?.mediaListEntry?.status.toLowerCase();
 
                         return (
                             <Content key={val.id}>
                                 <Image src={val.coverImage.medium} />
                                 <Title>{val.title.english}</Title>
-                                {status ? (
+                                {url ? (
                                     <CollectionInfo to={`/collections/${url}`}>
-                                        {status}
+                                        {url}
                                     </CollectionInfo>
                                 ) : null}
                                 <Description>{val.description}</Description>

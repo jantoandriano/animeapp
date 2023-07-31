@@ -18,7 +18,11 @@ export const CollectionList = () => {
             <PageLayout pageTitle="Collection List">
                 <QueryLayout loading={loading || !data} error={error}>
                     <CollectionItemWrapper>
-                        <CollectionItem collections={data?.lists || []} />
+                        {
+                            data?.lists.map((list: any) => (
+                                <CollectionItem name={list.name} entries={list.entries} />
+                            ))
+                        }
                     </CollectionItemWrapper>
                 </QueryLayout>
             </PageLayout>
