@@ -1,12 +1,12 @@
 import styled from '@emotion/styled'
-import { Card } from '../components/card'
+import { AnimeItem } from '../components/anime-item'
 import { PageLayout } from '../layouts/page-layout'
 import { QueryLayout } from '../layouts/query-layout'
 import { useGetAnimeList } from '../hooks/queries/useGetAnimeList'
 import { Pagination } from '../components/pagination'
 import { useState } from 'react'
 
-const ContentContainer = styled.div`
+const AnimeListContainer = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -28,7 +28,7 @@ interface Media {
 export const AnimeList: React.FC = () => {
     const [page, setPage] = useState<number>(1)
 
-    const { media, pageInfo, loading, error } = useGetAnimeList(page)
+    const { data, pageInfo, loading, error } = useGetAnimeList(page)
 
     const onNextPage = () => {
         setPage((prev) => prev + 1)
@@ -40,16 +40,16 @@ export const AnimeList: React.FC = () => {
 
     return (
         <PageLayout pageTitle="Anime List">
-            <QueryLayout loading={loading || !media.length} error={error}>
-                <ContentContainer>
-                    {media.map((val: Media) => (
-                        <Card
+            <QueryLayout loading={loading || !data.length} error={error}>
+                <AnimeListContainer>
+                    {data.map((val: Media) => (
+                        <AnimeItem
                             id={val.id}
                             title={val.title.english}
                             image={val.coverImage.extraLarge}
                         />
                     ))}
-                </ContentContainer>
+                </AnimeListContainer>
 
                 <Pagination
                     currentPage={pageInfo?.currentPage}

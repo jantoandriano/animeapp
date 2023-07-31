@@ -33,7 +33,7 @@ export const useGetAnimeList = (page: number) => {
     })
 
     return {
-        media: data?.Page?.media || [],
+        data: data?.Page?.media || [],
         pageInfo: data?.Page?.pageInfo || null,
         error,
         loading,

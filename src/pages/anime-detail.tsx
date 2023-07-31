@@ -41,8 +41,9 @@ const Content = styled.div`
 `
 
 const Image = styled.img`
-    width: 300px;
+    width: 260px;
     height: 200px;
+    object-fit: cover;
 `
 const Title = styled.div`
     font-size: 18px;
@@ -55,6 +56,7 @@ const Title = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    text-align: center;
 `
 
 const Description = styled.div`
@@ -84,6 +86,7 @@ const CollectionInfo = styled(Link)`
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
     color: #000000;
+    margin-bottom: 10px;
 `
 
 export const AnimeDetail: React.FC = () => {

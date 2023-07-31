@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { PageLayout } from '../layouts/page-layout'
 import { useLocation } from 'react-router'
 import { useEffect } from 'react'
 import queryString from 'query-string'
@@ -30,8 +29,6 @@ export const WelcomePage = () => {
     useEffect(() => {
         const temp = queryString.parse(params.hash)
         if (temp.access_token) {
-            console.log(temp.access_token)
-
             sessionStorage.setItem('access_token', temp.access_token as string)
             navigate('/animes')
         }

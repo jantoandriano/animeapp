@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 
-const CardContainer = styled.div`
+const AnimeItemContainer = styled.div`
     border: 0.5rem solid;
     height: 200px;
     border-radius: 10px;
@@ -11,7 +11,7 @@ const CardContainer = styled.div`
     }
 `
 
-const CardImage = styled.img`
+const AnimeItemImage = styled.img`
     width: 100%;
     height: 100px;
     background-color: #d8d9da;
@@ -19,7 +19,7 @@ const CardImage = styled.img`
     object-fit: cover;
 `
 
-const CardTitle = styled.div`
+const AnimeItemTitle = styled.div`
     color: black;
     font-size: 10px;
     text-align: center;
@@ -31,7 +31,7 @@ const CardTitle = styled.div`
     font-family: 'Poppins', sans-serif;
 `
 
-const Content = styled(Link)`
+const AnimeItemContent = styled(Link)`
     text-decoration: none;
     font-weight: bold;
 `
@@ -42,13 +42,13 @@ interface Props {
     title: string
 }
 
-export const Card: React.FC<Props> = ({ id, image, title }) => {
+export const AnimeItem: React.FC<Props> = ({ id, image, title }) => {
     return (
-        <CardContainer>
-            <Content to={`/animes/${id}`}>
-                <CardImage alt="card_image" src={image} />
-                <CardTitle>{title}</CardTitle>
-            </Content>
-        </CardContainer>
+        <AnimeItemContainer>
+            <AnimeItemContent to={`/animes/${id}`}>
+                <AnimeItemImage alt="card_image" src={image} />
+                <AnimeItemTitle>{title}</AnimeItemTitle>
+            </AnimeItemContent>
+        </AnimeItemContainer>
     )
 }

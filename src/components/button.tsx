@@ -18,9 +18,7 @@ const Container = styled.div<Styled>`
     align-items: center;
     margin: 0 auto;
     text-align: center;
-
     padding: 8px;
-    width: 40%;
     height: 30px;
     background-color: ${(props) =>
         props.type === 'watching' ? '#0A6EBD;' : '#A1C2F1;'}
@@ -28,6 +26,7 @@ const Container = styled.div<Styled>`
     border: 1px solid black;
     border-radius: 10px;
     font-family: 'Poppins', sans-serif;
+    width: 140px;
 
 `
 
