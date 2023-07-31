@@ -30,10 +30,13 @@ const Content = styled.div`
     background-color: #fff6e0;
     border-radius: 8px;
     margin-bottom: 20px;
+    margin: 0 auto;
 
-    @media only screen and (min-width: 768px) {
+    @media and (min-width: 768px) {
         align-items: center;
+        width: 100%;
     }
+
 `
 
 const Description = styled.div`
@@ -60,15 +63,28 @@ const Header = styled.div`
     display: flex;
     justify-content: flex-start;
 `
+const CollectionItemWrapper = styled.div`
+    padding: 0 30px 0 30px;
+
+    @media only screen and (min-width: 468px) {
+        align-items: center;
+        padding: 0 40px 0 40px;
+    }
+    @media (min-width: 768px) {
+        align-items: center;
+        padding: 0 100px 0 100px;
+    }
+
+`
 
 export const CollectionItem: React.FC<Props> = ({ collections }) => {
 
     return (
-        <div>
+        <>
             {collections.map((val: Collections) => {
                 const route = val.name === 'Watching' ? 'current' : val.name.toLowerCase()
                 return (
-                    <>
+                    <CollectionItemWrapper>
                         <Header key={val.name}>
                             <CollectionTitle to={`/collections/${route}`}>
                                 {val.name}
@@ -90,9 +106,9 @@ export const CollectionItem: React.FC<Props> = ({ collections }) => {
                                 )
                             })
                         }
-                    </>
+                    </CollectionItemWrapper>
                 )
             })}
-        </div>
+        </>
     )
 }

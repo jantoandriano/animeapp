@@ -3,11 +3,11 @@ import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
 import { PageLayout, QueryLayout } from '../layouts'
 import { CollectionItem } from '../components/collection-item'
 
-const CollectionWrapper = styled.div`
+const CollectionItemWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+    justify-content: center;
     gap: 20px;
+    flex-direction: column;
 `
 
 export const CollectionList = () => {
@@ -17,9 +17,9 @@ export const CollectionList = () => {
         <>
             <PageLayout pageTitle="Collection List">
                 <QueryLayout loading={loading || !data} error={error}>
-                    <CollectionWrapper>
+                    <CollectionItemWrapper>
                         <CollectionItem collections={data?.lists || []} />
-                    </CollectionWrapper>
+                    </CollectionItemWrapper>
                 </QueryLayout>
             </PageLayout>
         </>
