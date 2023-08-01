@@ -5,7 +5,7 @@ interface Styled {
     show: boolean
 }
 
-interface Button {
+interface ButtonStyled {
     type: string
 }
 
@@ -56,7 +56,7 @@ const ModalFooter = styled.div`
     margin-top: 20px;
 `
 
-const Button = styled.div<Button>`
+const Button = styled.div<ButtonStyled>`
     padding: 10px;
     font-family: 'Poppins', sans-serif;
     border-radius: 8px;
@@ -86,13 +86,12 @@ export const AddCollection: React.FC<Props> = ({
     const [error, setError] = useState('')
 
     useEffect(() => {
-        const re = new RegExp('^[^<>%$]*$');
+        const re = new RegExp('^[^<>%$]*$')
         if (!re.test(state as string)) {
-            setError("dont include special character")
+            setError('dont include special character')
         } else {
-            setError("")
+            setError('')
         }
-
     }, [state])
 
     const onChange = (event: { target: { value: SetStateAction<string> } }) => {

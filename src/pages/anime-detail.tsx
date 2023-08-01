@@ -12,6 +12,7 @@ import { QueryLayout } from '../layouts/query-layout'
 import { useGetAnimeDetail } from '../hooks/queries/useGetAnimeDetail'
 import { Button } from '../components/button'
 import { AddCollection } from '../components/add-collection'
+import { useCollectionContext } from '../context/collection'
 
 interface Media {
     mediaListEntry: {
@@ -97,20 +98,10 @@ const CollectionInfo = styled(Link)`
 export const AnimeDetail: React.FC = () => {
     const [openAddCollection, setOpenAddCollection] = useState(false)
     const { media, loading, error } = useGetAnimeDetail()
-
-    function onAddColection(data: any, state: any) {
-        const collection = sessionStorage.getItem('collections')
-        const result = collection ? JSON.parse(collection as string) : []
-
-        const dataSameCollections = { collectionname: state, ...data }
-        sessionStorage.setItem(
-            'collections',
-            JSON.stringify([...result, dataSameCollections])
-        )
-    }
+    const context = useCollectionContext()
 
     const onAddNewCollection = (state: any, data: any) => {
-        onAddColection(data, state)
+        context.onAddColection(data, state)
         setOpenAddCollection(false)
     }
 

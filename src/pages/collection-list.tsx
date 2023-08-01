@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { PageLayout } from '../layouts'
 import { CollectionItem } from '../components/collection-item'
-import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
+import { useCollectionContext } from '../context/collection'
 
 const CollectionItemWrapper = styled.div`
     display: flex;
@@ -11,33 +11,19 @@ const CollectionItemWrapper = styled.div`
 `
 
 export const CollectionList = () => {
-    const { collections } = useGetCollectionList()
-
-    function onDeleteCollection(collection: string) {
-        const result = sessionStorage.getItem('collections')
-        const parseResult = result ? JSON.parse(result as string) : []
-
-        const updatedCollections = parseResult.filter(
-            (val: { collectionname: string }) =>
-                val.collectionname !== collection
-        )
-        sessionStorage.setItem(
-            'collections',
-            JSON.stringify(updatedCollections)
-        )
-    }
+    const context = useCollectionContext()
 
     return (
         <>
             <PageLayout pageTitle="Collection List">
                 <CollectionItemWrapper>
-                    {Object.keys(collections).map((list) => {
+                    {Object.keys(context.collections).map((list) => {
                         return (
                             <CollectionItem
                                 key={list}
                                 name={list}
-                                entry={collections[list]}
-                                onDeleteCollection={onDeleteCollection}
+                                entry={context.collections[list]}
+                                onDeleteCollection={context.onDeleteCollection}
                             />
                         )
                     })}

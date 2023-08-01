@@ -9,6 +9,7 @@ import {
     createHttpLink,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { CollectionProvider } from './context/collection'
 
 const httpLink = createHttpLink({
     uri: 'https://graphql.anilist.co',
@@ -40,7 +41,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
         <ApolloProvider client={client}>
-            <App />
+            <CollectionProvider>
+                <App />
+            </CollectionProvider>
         </ApolloProvider>
     </React.StrictMode>
 )

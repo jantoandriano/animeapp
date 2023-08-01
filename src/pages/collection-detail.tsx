@@ -1,14 +1,15 @@
 import { PageLayout } from '../layouts'
-import { CollectionItem } from '../components/collection-item'
 import { Modal } from '../components/modal'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetCollectionDetail } from '../hooks/queries/useGetCollectionDetail'
+import { useCollectionContext } from '../context/collection'
+import { CollectionItem } from '../components/collection-item'
 
 export const CollectionDetail = () => {
     const [stateModal, setStateModal] = useState({ id: 0, title: '' })
-    const { collectionDetail } = useGetCollectionDetail()
     const params = useParams()
+
+    const context = useCollectionContext()
 
     const onCloseModal = () => {
         setStateModal({ ...stateModal, id: 0, title: '' })
@@ -18,32 +19,31 @@ export const CollectionDetail = () => {
         setStateModal({ ...stateModal, id, title })
     }
 
-    const onConfirm = () => {
-        setStateModal({ ...stateModal, id: 0, title: '' })
-    }
-
-    const onDeleteCollection = (collection: string) => {
-        console.log(collection)
+    const onConfirmDelete = (id: number) => {
+        context.onConfirm(id, params, onCloseModal)
     }
 
     const show = stateModal.id ? true : false
 
+    const temp = context?.collections[params.type as string]
+
     return (
         <>
             <PageLayout pageTitle="Collection Detail">
-                <CollectionItem
-                    name={params?.type as string}
-                    entry={collectionDetail}
-                    onDelete={openModal}
-                    onDeleteCollection={onDeleteCollection}
-                    typeDetail
-                />
+                {temp ? (
+                    <CollectionItem
+                        name={params.type as string}
+                        entry={context?.collections[params.type as string]}
+                        onDelete={openModal}
+                        onDeleteCollection={context.onDeleteCollection}
+                    />
+                ) : null}
             </PageLayout>
             <Modal
                 id={stateModal.id}
                 title={stateModal.title}
                 show={show}
-                onYes={onConfirm}
+                onYes={onConfirmDelete}
                 onNo={onCloseModal}
             />
         </>
