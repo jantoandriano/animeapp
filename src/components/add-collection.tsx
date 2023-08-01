@@ -54,6 +54,9 @@ const ModalFooter = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    @media screen and (min-width: 568px) {
+        padding: 0 4rem 0 4rem;
+    }
 `
 
 const Button = styled.div<ButtonStyled>`
@@ -66,14 +69,21 @@ const Button = styled.div<ButtonStyled>`
     align-items: center;
     background-color: ${(props) =>
         props.type === 'yes' ? '#A2FF86' : '#ED2B2A'};
+    cursor: pointer;
 `
 
 const Input = styled.input`
-    width: 200px;
-    height: 20px;
+    width: 230px;
+    height: 28px;
     border-radius: 8px;
     padding: 5px;
     font-family: 'Poppins', sans-serif;
+`
+
+const Title = styled.div`
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 18px;
 `
 
 export const AddCollection: React.FC<Props> = ({
@@ -102,6 +112,7 @@ export const AddCollection: React.FC<Props> = ({
         <ModalContainer show={show}>
             <ModalMain>
                 <ModalBody>
+                    <Title>Add New Collection</Title>
                     <Input type="text" value={state} onChange={onChange} />
                     <div style={{ color: 'red' }}>{error}</div>
                 </ModalBody>

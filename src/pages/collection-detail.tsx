@@ -25,15 +25,15 @@ export const CollectionDetail = () => {
 
     const show = stateModal.id ? true : false
 
-    const temp = context?.collections[params.type as string]
+    const collectionsItem = context?.collections[params.type as string]
 
     return (
         <>
             <PageLayout pageTitle="Collection Detail">
-                {temp ? (
+                {collectionsItem ? (
                     <CollectionItem
                         name={params.type as string}
-                        entry={context?.collections[params.type as string]}
+                        entry={collectionsItem}
                         onDelete={openModal}
                         onDeleteCollection={context.onDeleteCollection}
                     />

@@ -23,10 +23,10 @@ const Container = styled.div<Styled>`
     background-color: ${(props) =>
         props.type === 'watching' ? '#0A6EBD;' : '#A1C2F1;'}
     color: white;
-    border: 1px solid black;
     border-radius: 10px;
     font-family: 'Poppins', sans-serif;
     width: 140px;
+    cursor: pointer
 
 `
 

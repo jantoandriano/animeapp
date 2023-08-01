@@ -4,8 +4,9 @@ import {
     JSXElementConstructor,
     ReactNode,
     useState,
+    ReactPortal,
 } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { PageLayout } from '../layouts/page-layout'
 import { QueryLayout } from '../layouts/query-layout'
@@ -23,13 +24,13 @@ interface Media {
     coverImage: { medium: string | undefined }
     title: {
         english:
-            | string
-            | number
-            | boolean
-            | ReactElement<any, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | null
-            | undefined
+        | string
+        | number
+        | boolean
+        | ReactElement<any, string | JSXElementConstructor<any>>
+        | Iterable<ReactNode>
+        | null
+        | undefined
     }
 }
 
@@ -95,34 +96,48 @@ const CollectionInfo = styled(Link)`
     margin-bottom: 10px;
 `
 
+const CollectionInfoWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+`
+
 export const AnimeDetail: React.FC = () => {
     const [openAddCollection, setOpenAddCollection] = useState(false)
     const { media, loading, error } = useGetAnimeDetail()
     const context = useCollectionContext()
+    const params = useParams()
+
 
     const onAddNewCollection = (state: any, data: any) => {
         context.onAddColection(data, state)
         setOpenAddCollection(false)
     }
 
+    const temp = context?.collectionsRaw?.filter((val: { id: string | undefined }) => val.id == params.id)
+
+
     return (
         <PageLayout pageTitle="Anime Detail">
             <QueryLayout loading={loading} error={error}>
                 <Container>
                     {media.map((val: Media) => {
-                        const url =
-                            val?.mediaListEntry?.status === 'CURRENT'
-                                ? 'watching'
-                                : val?.mediaListEntry?.status.toLowerCase()
                         return (
                             <Content key={val.id}>
                                 <Image src={val.coverImage.medium} />
                                 <Title>{val.title.english}</Title>
-                                {url ? (
-                                    <CollectionInfo to={`/collections/${url}`}>
-                                        {url}
-                                    </CollectionInfo>
-                                ) : null}
+                                <CollectionInfoWrapper>
+                                    {
+                                        temp ? temp.map((val: { collectionname: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined }) => (
+                                            <CollectionInfo to={`/collections/${val.collectionname}`}>
+                                                {val.collectionname}
+                                            </CollectionInfo>
+                                        )) : null
+                                    }
+                                </CollectionInfoWrapper>
+
                                 <Description>{val.description}</Description>
                                 <ButtonGroup>
                                     <Button
