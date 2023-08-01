@@ -5,6 +5,7 @@ import {
     useEffect,
     useState,
 } from 'react'
+import { groupCollection } from '../helper'
 
 const CollectionContext = createContext<any>([])
 
@@ -19,14 +20,7 @@ export const CollectionProvider: React.FC<PropsWithChildren> = ({
         const result = sessionStorage.getItem('collections')
         const parseResult = result ? JSON.parse(result as string) : []
 
-        const collections = parseResult.reduce(function (
-            r: { [x: string]: any[] },
-            a: { collectionname: string | number }
-        ) {
-            r[a.collectionname] = r[a.collectionname] || []
-            r[a.collectionname].push(a)
-            return r
-        }, Object.create(null))
+        const collections = groupCollection(parseResult);
 
         setCollections(collections)
         setCollectionsRaw(parseResult)
@@ -76,6 +70,7 @@ export const CollectionProvider: React.FC<PropsWithChildren> = ({
             (val: { collectionname: string }) =>
                 val.collectionname !== collection
         )
+        sessionStorage.setItem('collections', JSON.stringify(updatedCollections))
         setCollections(updatedCollections)
     }
 

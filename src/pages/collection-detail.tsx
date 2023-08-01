@@ -1,5 +1,5 @@
 import { PageLayout } from '../layouts'
-import { Modal } from '../components/modal'
+import { ModalRemoveCollectionItem } from '../components/modal-remove-collection'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useCollectionContext } from '../context/collection'
@@ -36,10 +36,11 @@ export const CollectionDetail = () => {
                         entry={collectionsItem}
                         onDelete={openModal}
                         onDeleteCollection={context.onDeleteCollection}
+                        typeDetail
                     />
                 ) : null}
             </PageLayout>
-            <Modal
+            <ModalRemoveCollectionItem
                 id={stateModal.id}
                 title={stateModal.title}
                 show={show}

@@ -17,13 +17,13 @@ interface Entry {
     coverImage: { medium: string | undefined }
     title: {
         userPreferred:
-            | string
-            | number
-            | boolean
-            | ReactElement<any, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | null
-            | undefined
+        | string
+        | number
+        | boolean
+        | ReactElement<any, string | JSXElementConstructor<any>>
+        | Iterable<ReactNode>
+        | null
+        | undefined
     }
 }
 
@@ -73,7 +73,7 @@ const CollectionTitle = styled(Link)`
 
 const Header = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 `
 const CollectionItemWrapper = styled.div`
@@ -97,6 +97,7 @@ const Delete = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    cursor: pointer;
 `
 
 export const CollectionItem: React.FC<Props> = ({
@@ -115,8 +116,7 @@ export const CollectionItem: React.FC<Props> = ({
                     <CollectionTitle to={`/collections/${route}`}>
                         {name}
                     </CollectionTitle>
-                    <AiOutlineFolderOpen />
-                    <AiOutlineDelete onClick={() => onDeleteCollection(name)} />
+                    <AiOutlineDelete onClick={() => onDeleteCollection(name)} style={{ cursor: 'pointer' }} />
                 </Header>
 
                 {entry.map((val: Entry) => (

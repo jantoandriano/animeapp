@@ -51,7 +51,7 @@ const ModalBody = styled.div`
 
 const ModalFooter = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin-top: 20px;
 `
@@ -66,9 +66,10 @@ const Button = styled.div<Button>`
     align-items: center;
     background-color: ${(props) =>
         props.type === 'yes' ? '#A2FF86' : '#ED2B2A'};
+    cursor: pointer;
 `
 
-export const Modal: React.FC<Props> = ({ id, title, onNo, onYes, show }) => {
+export const ModalRemoveCollectionItem: React.FC<Props> = ({ id, title, onNo, onYes, show }) => {
     return (
         <ModalContainer show={show}>
             <ModalMain>
