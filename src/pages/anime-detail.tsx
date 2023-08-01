@@ -1,12 +1,17 @@
-import { Key, ReactElement, JSXElementConstructor, ReactNode } from 'react'
+import {
+    Key,
+    ReactElement,
+    JSXElementConstructor,
+    ReactNode,
+    useState,
+} from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { CgAdd } from 'react-icons/cg'
 import { PageLayout } from '../layouts/page-layout'
 import { QueryLayout } from '../layouts/query-layout'
 import { useGetAnimeDetail } from '../hooks/queries/useGetAnimeDetail'
 import { Button } from '../components/button'
-import { useAddCollection } from '../hooks/mutations/useAddCollection'
+import { AddCollection } from '../components/add-collection'
 
 interface Media {
     mediaListEntry: {
@@ -17,13 +22,13 @@ interface Media {
     coverImage: { medium: string | undefined }
     title: {
         english:
-        | string
-        | number
-        | boolean
-        | ReactElement<any, string | JSXElementConstructor<any>>
-        | Iterable<ReactNode>
-        | null
-        | undefined
+            | string
+            | number
+            | boolean
+            | ReactElement<any, string | JSXElementConstructor<any>>
+            | Iterable<ReactNode>
+            | null
+            | undefined
     }
 }
 
@@ -90,24 +95,34 @@ const CollectionInfo = styled(Link)`
 `
 
 export const AnimeDetail: React.FC = () => {
+    const [openAddCollection, setOpenAddCollection] = useState(false)
     const { media, loading, error } = useGetAnimeDetail()
-    const { addToCollection, loading: loadingMutate } = useAddCollection()
 
-    function onAddPlaningCollection(mediaId: number) {
-        addToCollection({ variables: { mediaId, status: 'PLANNING' } })
+    function onAddColection(data: any, state: any) {
+        const collection = sessionStorage.getItem('collections')
+        const result = collection ? JSON.parse(collection as string) : []
+
+        const dataSameCollections = { collectionname: state, ...data }
+        sessionStorage.setItem(
+            'collections',
+            JSON.stringify([...result, dataSameCollections])
+        )
     }
 
-    function onAddWatchingCollection(mediaId: number) {
-        addToCollection({ variables: { mediaId, status: 'CURRENT' } })
+    const onAddNewCollection = (state: any, data: any) => {
+        onAddColection(data, state)
+        setOpenAddCollection(false)
     }
 
     return (
         <PageLayout pageTitle="Anime Detail">
             <QueryLayout loading={loading} error={error}>
                 <Container>
-                    {media.map((val: Media) => {                        
-                        const url = val?.mediaListEntry?.status === 'CURRENT' ? "watching" : val?.mediaListEntry?.status.toLowerCase();
-
+                    {media.map((val: Media) => {
+                        const url =
+                            val?.mediaListEntry?.status === 'CURRENT'
+                                ? 'watching'
+                                : val?.mediaListEntry?.status.toLowerCase()
                         return (
                             <Content key={val.id}>
                                 <Image src={val.coverImage.medium} />
@@ -122,28 +137,19 @@ export const AnimeDetail: React.FC = () => {
                                     <Button
                                         type="planning"
                                         onClick={() =>
-                                            onAddPlaningCollection(
-                                                val.id as number
-                                            )
+                                            setOpenAddCollection(true)
                                         }
-                                        loading={loadingMutate}
+                                        loading={false}
                                     >
-                                        <CgAdd /> Planning
-                                    </Button>
-
-                                    <Button
-                                        type="watching"
-                                        onClick={() =>
-                                            onAddWatchingCollection(
-                                                val.id as number
-                                            )
-                                        }
-                                        loading={loadingMutate}
-                                    >
-                                        <CgAdd />
-                                        Watching
+                                        Add To Collection
                                     </Button>
                                 </ButtonGroup>
+                                <AddCollection
+                                    data={val}
+                                    show={openAddCollection}
+                                    onAddNewCollection={onAddNewCollection}
+                                    onCloseAddCollection={setOpenAddCollection}
+                                />
                             </Content>
                         )
                     })}

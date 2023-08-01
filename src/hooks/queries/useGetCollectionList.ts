@@ -1,55 +1,25 @@
-import { gql, useQuery } from '@apollo/client'
-
-export const GET_COLLECTION_LIST = gql`
-    query ($userId: Int, $type: MediaType) {
-        MediaListCollection(userId: $userId, type: $type) {
-            lists {
-                name
-                isCustomList
-                isCompletedList: isSplitCompletedList
-                entries {
-                    ...mediaListEntry
-                }
-            }
-            user {
-                id
-                name
-                avatar {
-                    large
-                }
-            }
-        }
-    }
-
-    fragment mediaListEntry on MediaList {
-        id
-        mediaId
-        status
-        media {
-            id
-            title {
-                userPreferred
-                romaji
-                english
-                native
-            }
-            coverImage {
-                extraLarge
-                large
-            }
-            bannerImage
-        }
-    }
-`
+import { useEffect, useState } from 'react'
 
 export const useGetCollectionList = () => {
-    const { loading, error, data } = useQuery(GET_COLLECTION_LIST, {
-        variables: { type: 'ANIME', userId: process.env.REACT_APP_USER_ID },
-    })
+    const [collections, setCollections] = useState<any>([])
+
+    useEffect(() => {
+        const result = sessionStorage.getItem('collections')
+        const parseResult = result ? JSON.parse(result as string) : []
+
+        const collections = parseResult.reduce(function (
+            r: { [x: string]: any[] },
+            a: { collectionname: string | number }
+        ) {
+            r[a.collectionname] = r[a.collectionname] || []
+            r[a.collectionname].push(a)
+            return r
+        }, Object.create(null))
+
+        setCollections(collections)
+    }, [])
 
     return {
-        data: data?.MediaListCollection || null,
-        error,
-        loading,
+        collections,
     }
 }

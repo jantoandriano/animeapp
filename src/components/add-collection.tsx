@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { SetStateAction, useEffect, useState } from 'react'
 
 interface Styled {
     show: boolean
@@ -9,11 +10,10 @@ interface Button {
 }
 
 interface Props {
-    onYes: (id: number) => void
-    onNo: () => void
     show: boolean
-    id: number
-    title: string
+    onAddNewCollection: any
+    onCloseAddCollection: any
+    data: any
 }
 
 const ModalContainer = styled.div<Styled>`
@@ -68,18 +68,57 @@ const Button = styled.div<Button>`
         props.type === 'yes' ? '#A2FF86' : '#ED2B2A'};
 `
 
-export const Modal: React.FC<Props> = ({ id, title, onNo, onYes, show }) => {
+const Input = styled.input`
+    width: 200px;
+    height: 20px;
+    border-radius: 8px;
+    padding: 5px;
+    font-family: 'Poppins', sans-serif;
+`
+
+export const AddCollection: React.FC<Props> = ({
+    data,
+    show,
+    onAddNewCollection,
+    onCloseAddCollection,
+}) => {
+    const [state, setSTate] = useState('')
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        const re = new RegExp('^[^<>%$]*$');
+        if (!re.test(state as string)) {
+            setError("dont include special character")
+        } else {
+            setError("")
+        }
+
+    }, [state])
+
+    const onChange = (event: { target: { value: SetStateAction<string> } }) => {
+        setSTate(event?.target.value)
+    }
+
     return (
         <ModalContainer show={show}>
             <ModalMain>
-                <ModalBody>Are you sure want to remove {title}</ModalBody>
+                <ModalBody>
+                    <Input type="text" value={state} onChange={onChange} />
+                    <div style={{ color: 'red' }}>{error}</div>
+                </ModalBody>
                 <ModalFooter>
-                    <Button type="yes" onClick={() => onYes(id)}>
-                        Yes
+                    <Button
+                        type="yes"
+                        onClick={() => onAddNewCollection(state, data)}
+                    >
+                        Add
                     </Button>
 
-                    <Button type="no" onClick={onNo}>
-                        No
+                    <Button
+                        type="no"
+                        onClick={() => onCloseAddCollection(false)}
+                    >
+                        Cancel
                     </Button>
                 </ModalFooter>
             </ModalMain>

@@ -1,62 +1,22 @@
-import { gql, useQuery } from '@apollo/client'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export const GET_COLLECTION_DETAIL = gql`
-    query ($userId: Int, $type: MediaType, $status: MediaListStatus) {
-        MediaListCollection(userId: $userId, type: $type, status: $status) {
-            lists {
-                name
-                isCustomList
-                isCompletedList: isSplitCompletedList
-                entries {
-                    ...mediaListEntry
-                }
-            }
-            user {
-                id
-                name
-                avatar {
-                    large
-                }
-            }
-        }
-    }
-
-    fragment mediaListEntry on MediaList {
-        id
-        mediaId
-        status
-        media {
-            id
-            title {
-                userPreferred
-                romaji
-                english
-                native
-            }
-            coverImage {
-                extraLarge
-                large
-            }
-            bannerImage
-        }
-    }
-`
-
 export const useGetCollectionDetail = () => {
+    const [collectionDetail, setCollectionDetail] = useState([])
+
     const params = useParams()
 
-    const { loading, error, data } = useQuery(GET_COLLECTION_DETAIL, {
-        variables: {
-            type: 'ANIME',
-            userId: process.env.REACT_APP_USER_ID,
-            status: params.type?.toUpperCase(),
-        },
-    })
+    useEffect(() => {
+        const result = sessionStorage.getItem('collections')
+        const resultParsed = JSON.parse(result as string)
+        const collections = resultParsed.filter(
+            (val: { collectionname: string | undefined }) =>
+                val.collectionname === params.type
+        )
+        setCollectionDetail(collections)
+    }, [])
 
     return {
-        data: data?.MediaListCollection || null,
-        loading,
-        error,
+        collectionDetail,
     }
 }

@@ -5,12 +5,12 @@ export interface List {
 
 export interface Entry {
     id: string
-    mediaId: number;
+    mediaId: number
     media: {
         bannerImage: string
         title: {
             userPreferred: string
         }
-        id: number;
+        id: number
     }
 }

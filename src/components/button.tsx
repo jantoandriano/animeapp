@@ -7,7 +7,7 @@ interface Styled {
 }
 
 interface Props {
-    onClick: () => void
+    onClick: any
     loading?: boolean
     type: string
 }

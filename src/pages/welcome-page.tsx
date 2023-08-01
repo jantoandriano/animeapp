@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;    
+    padding: 2rem;
 `
 
 const Enter = styled.div`
@@ -27,7 +27,6 @@ const Enter = styled.div`
         text-decoration: none;
         color: white;
     }
-
 `
 const Title = styled.div`
     font-size: 3rem;
@@ -58,15 +57,16 @@ export const WelcomePage = () => {
 
     return (
         <Container>
-            <Title>
-                Welcome to animeapp
-            </Title>
+            <Title>Welcome to animeapp</Title>
             <Description>
-                This is created to fullfil requirement process of GOTO - Principle Enginner - Web Platform 
-                and for this app to work propperly you need to click button below to get authenticate
+                This is created to fullfil requirement process of GOTO -
+                Principle Enginner - Web Platform and for this app to work
+                propperly you need to click button below to get authenticate
             </Description>
             <Enter>
-                <a href="https://anilist.co/api/v2/oauth/authorize?client_id=13790&response_type=token">Click Here</a>
+                <a href="https://anilist.co/api/v2/oauth/authorize?client_id=13790&response_type=token">
+                    Click Here
+                </a>
             </Enter>
         </Container>
     )

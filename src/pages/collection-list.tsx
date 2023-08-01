@@ -1,9 +1,7 @@
 import styled from '@emotion/styled'
-import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
-import { PageLayout, QueryLayout } from '../layouts'
+import { PageLayout } from '../layouts'
 import { CollectionItem } from '../components/collection-item'
-import { List } from '../types'
-
+import { useGetCollectionList } from '../hooks/queries/useGetCollectionList'
 
 const CollectionItemWrapper = styled.div`
     display: flex;
@@ -13,20 +11,37 @@ const CollectionItemWrapper = styled.div`
 `
 
 export const CollectionList = () => {
-    const { data, loading, error } = useGetCollectionList()
+    const { collections } = useGetCollectionList()
+
+    function onDeleteCollection(collection: string) {
+        const result = sessionStorage.getItem('collections')
+        const parseResult = result ? JSON.parse(result as string) : []
+
+        const updatedCollections = parseResult.filter(
+            (val: { collectionname: string }) =>
+                val.collectionname !== collection
+        )
+        sessionStorage.setItem(
+            'collections',
+            JSON.stringify(updatedCollections)
+        )
+    }
 
     return (
         <>
             <PageLayout pageTitle="Collection List">
-                <QueryLayout loading={loading || !data} error={error}>
-                    <CollectionItemWrapper>
-                        {
-                            data?.lists.map((list: List) => (
-                                <CollectionItem key={list.name} name={list.name} entries={list.entries} />
-                            ))
-                        }
-                    </CollectionItemWrapper>
-                </QueryLayout>
+                <CollectionItemWrapper>
+                    {Object.keys(collections).map((list) => {
+                        return (
+                            <CollectionItem
+                                key={list}
+                                name={list}
+                                entry={collections[list]}
+                                onDeleteCollection={onDeleteCollection}
+                            />
+                        )
+                    })}
+                </CollectionItemWrapper>
             </PageLayout>
         </>
     )
